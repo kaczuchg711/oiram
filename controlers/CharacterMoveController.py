@@ -13,6 +13,27 @@ class CharacterMoveController:
         self.button_is_down = {"w": False, "s": False, "a": False, "d": False}
 
     def check_event(self, event):
+
+        self._check_that_keys_are_pressed(event)
+
+        self._move_character_depend_on_key()
+
+        self._check_that_keys_are_not_pressed(event)
+
+    def _move_character_depend_on_key(self):
+        if self.button_is_down["w"]:
+            self.character.move("UP")
+
+        if self.button_is_down["s"]:
+            self.character.move("DOWN")
+
+        if self.button_is_down["a"]:
+            self.character.move("LEFT")
+
+        if self.button_is_down["d"]:
+            self.character.move("RIGHT")
+
+    def _check_that_keys_are_pressed(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_w:
                 self.button_is_down["w"] = True
@@ -23,18 +44,7 @@ class CharacterMoveController:
             if event.key == pygame.K_d:
                 self.button_is_down["d"] = True
 
-        if self.button_is_down["w"]:
-            self.character.coordinates = Point(self.character.coordinates.x, self.character.coordinates.y - 1)
-
-        if self.button_is_down["s"]:
-            self.character.coordinates = Point(self.character.coordinates.x, self.character.coordinates.y + 1)
-
-        if self.button_is_down["a"]:
-            self.character.coordinates = Point(self.character.coordinates.x - 1, self.character.coordinates.y)
-
-        if self.button_is_down["d"]:
-            self.character.coordinates = Point(self.character.coordinates.x + 1, self.character.coordinates.y)
-
+    def _check_that_keys_are_not_pressed(self, event):
         if event.type == pygame.KEYUP and event.key == pygame.K_w:
             self.button_is_down["w"] = False
 
@@ -46,3 +56,4 @@ class CharacterMoveController:
 
         if event.type == pygame.KEYUP and event.key == pygame.K_d:
             self.button_is_down["d"] = False
+
