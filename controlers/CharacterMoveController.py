@@ -8,16 +8,13 @@ from models import Characters
 
 class CharacterMoveController:
 
-    def __init__(self, character):
+    def __init__(self, character:Characters):
         self.character = character
         self.button_is_down = {"w": False, "s": False, "a": False, "d": False}
 
     def check_event(self, event):
-
         self._check_that_keys_are_pressed(event)
-
         self._move_character_depend_on_key()
-
         self._check_that_keys_are_not_pressed(event)
 
     def _move_character_depend_on_key(self):

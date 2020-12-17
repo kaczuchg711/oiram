@@ -11,7 +11,7 @@ color = 0, 0, 0
 
 screen = pygame.display.set_mode(size)
 
-mario = pygame.image.load("static/img/mario_jump.png")
+mario = pygame.image.load("static/img/oiram_stay.png")
 marioImage = pygame.transform.scale(mario,(int(width/10),int(height/10)))
 ballrect = mario.get_rect()
 
@@ -32,5 +32,3 @@ while True:
     screen.fill(color)
     screen.blit(oiram.images["go"], (oiram.coordinates.x, oiram.coordinates.y))
     pygame.display.flip()
-
-
