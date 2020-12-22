@@ -1,6 +1,8 @@
 import sys, pygame
 from time import sleep
 
+from pygame.time import Clock
+
 from controlers.CharacterMoveController import CharacterMoveController
 from models.Characters.Oiram import Oiram
 
@@ -16,19 +18,20 @@ marioImage = pygame.transform.scale(mario,(int(width/10),int(height/10)))
 ballrect = mario.get_rect()
 
 
+clock = Clock()
 
-oiram = Oiram(marioImage)
+oiram = Oiram(marioImage,clock)
 oiramMoveController = CharacterMoveController(oiram)
 
-clock = pygame.time.Clock()
-dt = clock.tick(60)
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
-        oiramMoveController.check_event(event)
+    keyboardState = pygame.key.get_pressed()
+    oiramMoveController.move_character_depend_on_key(keyboardState)
 
     screen.fill(color)
     screen.blit(oiram.images["go"], (oiram.coordinates.x, oiram.coordinates.y))
     pygame.display.flip()
+    pygame.time.delay(10)
