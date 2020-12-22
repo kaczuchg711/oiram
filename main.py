@@ -21,9 +21,10 @@ oiram = Oiram(marioImage)
 oiramMoveController = CharacterMoveController(oiram)
 
 clock = pygame.time.Clock()
-dt = clock.tick(60)
+
 
 while True:
+    dt = clock.tick(60)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
