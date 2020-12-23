@@ -14,15 +14,13 @@ color = 0, 0, 0
 screen = pygame.display.set_mode(size)
 
 mario = pygame.image.load("static/img/oiram_stay.png")
-marioImage = pygame.transform.scale(mario, (int(width/5), int(height/5)))
+marioImage = pygame.transform.scale(mario, (int(width / 5), int(height / 5)))
 ballrect = mario.get_rect()
-
 
 clock = Clock()
 
-oiram = Oiram(marioImage,clock)
+oiram = Oiram(marioImage, clock)
 oiramMoveController = CharacterMoveController(oiram)
-
 
 while True:
     for event in pygame.event.get():
@@ -31,9 +29,10 @@ while True:
     keyboardState = pygame.key.get_pressed()
     oiramMoveController.move_character_depend_on_key(keyboardState)
 
-
     print(oiram._jumpCount)
     screen.fill(color)
     screen.blit(oiram.images["go"], (oiram.coordinates.x, oiram.coordinates.y))
+    pygame.draw.line(screen, (255, 0, 0), (0, 238), (50, 238))
+
     pygame.display.flip()
     pygame.time.delay(10)

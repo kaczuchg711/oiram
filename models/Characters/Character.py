@@ -8,7 +8,7 @@ class Character:
 
     def __init__(self, image, clock):
         self.id = self.id + 1
-        self.coordinates = Point(0, 215)
+        self.coordinates = Point(0, 190)
         self.images = {"go": image}
         self.clock = clock
         self.last_direction = None
@@ -37,3 +37,5 @@ class Character:
             self.coordinates = Point(self.coordinates.x + dx, self.coordinates.y)
         else:
             raise ValueError
+
+        return dx
