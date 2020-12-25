@@ -29,7 +29,6 @@ while True:
     keyboardState = pygame.key.get_pressed()
     oiramMoveController.move_character_depend_on_key(keyboardState)
 
-    print(oiram._jumpCount)
     screen.fill(color)
     screen.blit(oiram.images["go"], (oiram.coordinates.x, oiram.coordinates.y))
     pygame.draw.line(screen, (255, 0, 0), (0, 238), (50, 238))
