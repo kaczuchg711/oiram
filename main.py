@@ -8,7 +8,7 @@ from models.Characters.Oiram import Oiram
 
 pygame.init()
 
-size = width, height = 320, 240
+size = width, height = 500, 300
 color = 0, 0, 0
 
 screen = pygame.display.set_mode(size)
@@ -30,8 +30,7 @@ while True:
     oiramMoveController.move_character_depend_on_key(keyboardState)
 
     screen.fill(color)
-    screen.blit(oiram.images["go"], (oiram.coordinates.x, oiram.coordinates.y))
-    pygame.draw.line(screen, (255, 0, 0), (0, 238), (50, 238))
+    oiram.draw(screen)
 
     pygame.display.flip()
     pygame.time.delay(10)
