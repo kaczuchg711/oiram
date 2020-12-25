@@ -12,6 +12,9 @@ class Character:
         self.images = {"go": image}
         self.clock = clock
         self.last_direction = None
+        self.isJumping = False
+        self._isFalling = False
+
 
     def move(self, direction: str):
         direction = direction.upper()
@@ -20,8 +23,8 @@ class Character:
         if dx > 2:
             dx = 2
 
-        if self.last_direction == "UP" or self.last_direction == "Down":
-            dx *= 2
+        if (self.isJumping and direction == "RIGHT") or (self.isJumping and direction == "LEFT"):
+            dx *= 3.2
 
         if direction == "UP":
             self.last_direction = "UP"

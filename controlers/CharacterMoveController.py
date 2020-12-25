@@ -13,10 +13,10 @@ class CharacterMoveController:
         self.character = character
 
     def move_character_depend_on_key(self, keyIsPressed):
-        if keyIsPressed[pygame.K_w]:
-            self.character.move("UP")
-        elif keyIsPressed[pygame.K_s]:
-            self.character.move("DOWN")
+        # if keyIsPressed[pygame.K_w]:
+        #     self.character.move("UP")
+        # elif keyIsPressed[pygame.K_s]:
+        #     self.character.move("DOWN")
 
         if keyIsPressed[pygame.K_a]:
             self.character.move("LEFT")

@@ -1,4 +1,4 @@
 .idea/
 venv
 __pycache__/
-brudno.py
+obliczanie_miejsc_zerowych.py
