@@ -6,10 +6,10 @@ from pygame.draw_py import Point
 class Character:
     id = 0
 
-    def __init__(self, image, clock):
+    def __init__(self, clock):
         self.id = self.id + 1
         self.coordinates = Point(0, 190)
-        self.images = {"go": image}
+        self.images = None
         self.clock = clock
         self.last_direction = None
         self.isJumping = False

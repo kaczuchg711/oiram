@@ -13,13 +13,13 @@ color = 0, 0, 0
 
 screen = pygame.display.set_mode(size)
 
-mario = pygame.image.load("static/img/oiram_stay.png")
-marioImage = pygame.transform.scale(mario, (int(width / 5), int(height / 5)))
+mario = pygame.image.load("static/img/oiram/oiram_stay.png")
+
 ballrect = mario.get_rect()
 
 clock = Clock()
 
-oiram = Oiram(marioImage, clock)
+oiram = Oiram(clock, "static/img/oiram")
 oiramMoveController = CharacterMoveController(oiram)
 
 while True:
@@ -31,6 +31,5 @@ while True:
 
     screen.fill(color)
     oiram.draw(screen)
-
     pygame.display.flip()
-    pygame.time.delay(10)
+    # pygame.time.delay(10)
