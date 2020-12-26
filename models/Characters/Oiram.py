@@ -1,15 +1,19 @@
 import pygame
 from os import listdir
 from os.path import isfile, join
+
 from models.Characters.Character import Character
 
 
 class Oiram(Character):
 
-    def __init__(self, clock,path_to_images_directory):
+    def __init__(self, clock, path_to_images_directory):
         super().__init__(clock)
         self.load_images(path_to_images_directory)
         self._jumpCount = 0
+        self.last_img = None
+        self.i = 0
+        self.imageDeley = 0
 
     def jump(self):
         self.isJumping = True
@@ -22,7 +26,7 @@ class Oiram(Character):
                 self.isJumping = False
                 self._isFalling = False
 
-    def load_images(self,path_to_images_directory):
+    def load_images(self, path_to_images_directory):
         # "static/img/oiram"
         # pygame.image.load()
 
@@ -43,5 +47,28 @@ class Oiram(Character):
 
     def draw(self, screen):
         cor = (self.coordinates.x, self.coordinates.y)
-        if not self.isJumping and self.last_direction == "RIGHT":
+
+        if 1 not in pygame.key.get_pressed() and self.last_direction == "RIGHT":
             screen.blit(self.images["stay"], cor)
+            return
+
+        if 1 not in pygame.key.get_pressed() and self.last_direction == "LEFT":
+            screen.blit(pygame.transform.flip(self.images["stay"],True,False), cor)
+            return
+
+        if self.last_direction == "RIGHT":
+            screen.blit(self.images["run" + str(self.i % 3 + 1)], cor)
+            self.deley_image_change()
+            return
+
+        if self.last_direction == "LEFT":
+            screen.blit(pygame.transform.flip(self.images["run" + str(self.i % 3 + 1)], True, False), cor)
+            self.deley_image_change()
+            return
+
+
+    def deley_image_change(self):
+        self.imageDeley += 1
+        if self.imageDeley == 10:
+            self.imageDeley = 0
+            self.i += 1

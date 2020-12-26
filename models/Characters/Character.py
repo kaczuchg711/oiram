@@ -7,8 +7,8 @@ class Character:
     id = 0
 
     def __init__(self, clock):
-        self.id = self.id + 1
         self.coordinates = Point(0, 190)
+        self.last_coordinates = None
         self.images = None
         self.clock = clock
         self.last_direction = None
