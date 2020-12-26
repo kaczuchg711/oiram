@@ -12,7 +12,7 @@ class Oiram(Character):
         self.load_images(path_to_images_directory)
         self._jumpCount = 0
         self.last_img = None
-        self.i = 0
+        self.imageNumber = 0
         self.imageDeley = 0
 
     def jump(self):
@@ -27,9 +27,6 @@ class Oiram(Character):
                 self._isFalling = False
 
     def load_images(self, path_to_images_directory):
-        # "static/img/oiram"
-        # pygame.image.load()
-
         files_images = [f for f in listdir(path_to_images_directory) if isfile(join(path_to_images_directory, f))]
         marioImages = [pygame.image.load(path_to_images_directory + "/" + file) for file in files_images]
         marioTransformedImages = [pygame.transform.scale(img, (int(500 / 5), int(300 / 5))) for img in marioImages]
@@ -48,27 +45,41 @@ class Oiram(Character):
     def draw(self, screen):
         cor = (self.coordinates.x, self.coordinates.y)
 
-        if 1 not in pygame.key.get_pressed() and self.last_direction == "RIGHT":
-            screen.blit(self.images["stay"], cor)
-            return
+        if not self.isJumping:
+            if 1 not in pygame.key.get_pressed() and self.lastHoriontalDirection == "RIGHT":
+                screen.blit(self.images["stay"], cor)
+                return
 
-        if 1 not in pygame.key.get_pressed() and self.last_direction == "LEFT":
-            screen.blit(pygame.transform.flip(self.images["stay"],True,False), cor)
-            return
+            if 1 not in pygame.key.get_pressed() and self.lastHoriontalDirection == "LEFT":
+                screen.blit(pygame.transform.flip(self.images["stay"], True, False), cor)
+                return
 
-        if self.last_direction == "RIGHT":
-            screen.blit(self.images["run" + str(self.i % 3 + 1)], cor)
-            self.deley_image_change()
-            return
+            if self.lastHoriontalDirection == "RIGHT":
+                screen.blit(self.images["run" + str(self.imageNumber % 3 + 1)], cor)
+                self.deley_image_change()
+                return
 
-        if self.last_direction == "LEFT":
-            screen.blit(pygame.transform.flip(self.images["run" + str(self.i % 3 + 1)], True, False), cor)
-            self.deley_image_change()
-            return
-
+            if self.lastHoriontalDirection == "LEFT":
+                screen.blit(pygame.transform.flip(self.images["run" + str(self.imageNumber % 3 + 1)], True, False), cor)
+                self.deley_image_change()
+                return
+        else:
+            if self._isFalling:
+                if self.lastHoriontalDirection == "RIGHT":
+                    screen.blit(self.images["fall2"], cor)
+                    return
+                if self.lastHoriontalDirection == "LEFT":
+                    screen.blit(pygame.transform.flip(self.images["fall2"], True, False), cor)
+                    return
+            if self.lastHoriontalDirection == "RIGHT":
+                screen.blit(self.images["jump1"], cor)
+                return
+            if self.lastHoriontalDirection == "LEFT":
+                screen.blit(pygame.transform.flip(self.images["jump1"], True, False), cor)
+                return
 
     def deley_image_change(self):
         self.imageDeley += 1
         if self.imageDeley == 10:
             self.imageDeley = 0
-            self.i += 1
+            self.imageNumber += 1
