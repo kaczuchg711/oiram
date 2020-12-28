@@ -83,6 +83,21 @@ class Oriam(pygame.sprite.Sprite):
  
         # Set a reference to the image rect.
         self.rect = self.image.get_rect()
+
+    def move_character_depend_on_key(self, event):
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                self.go_left()
+            if event.key == pygame.K_RIGHT:
+                self.go_right()
+            if event.key == pygame.K_UP:
+                self.jump()
+
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT and self.change_x < 0:
+                self.stop()
+            if event.key == pygame.K_RIGHT and self.change_x > 0:
+                self.stop()
  
     def update(self):
         """ Move the player. """
