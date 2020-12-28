@@ -1,3 +1,4 @@
-.idea
+.idea/
 venv
 __pycache__/
+obliczanie_miejsc_zerowych.py
