@@ -1,8 +1,6 @@
 import pygame
 from pygame.draw_py import Point
 
-
-
 class Character:
     def __init__(self, clock):
         self.coordinates = Point(0, 190)

@@ -28,18 +28,21 @@ class Oiram(Character):
 
     def load_images(self, path_to_images_directory):
         files_images = [f for f in listdir(path_to_images_directory) if isfile(join(path_to_images_directory, f))]
+
+        files_images.sort()
+
         marioImages = [pygame.image.load(path_to_images_directory + "/" + file) for file in files_images]
         marioTransformedImages = [pygame.transform.scale(img, (int(500 / 5), int(300 / 5))) for img in marioImages]
 
         self.images = {
-            "run1": marioTransformedImages[0],
-            "jump1": marioTransformedImages[1],
-            "fall2": marioTransformedImages[2],
-            "fall1": marioTransformedImages[3],
-            "swap": marioTransformedImages[4],
-            "stay": marioTransformedImages[5],
-            "run3": marioTransformedImages[6],
-            "run2": marioTransformedImages[7]
+            "fall1": marioTransformedImages[0],
+            "fall2": marioTransformedImages[1],
+            "jump1": marioTransformedImages[2],
+            "run1": marioTransformedImages[3],
+            "run2": marioTransformedImages[4],
+            "run3": marioTransformedImages[5],
+            "stay": marioTransformedImages[6],
+            "swap": marioTransformedImages[7]
         }
 
     def draw(self, screen):
