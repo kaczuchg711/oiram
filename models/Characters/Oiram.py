@@ -32,14 +32,14 @@ class Oiram(Character):
         marioTransformedImages = [pygame.transform.scale(img, (int(500 / 5), int(300 / 5))) for img in marioImages]
 
         self.images = {
-            "run1": marioTransformedImages[0],
-            "jump1": marioTransformedImages[1],
-            "fall2": marioTransformedImages[2],
-            "fall1": marioTransformedImages[3],
-            "swap": marioTransformedImages[4],
-            "stay": marioTransformedImages[5],
-            "run3": marioTransformedImages[6],
-            "run2": marioTransformedImages[7]
+            "run1": marioImages[0],
+            "jump1": marioImages[1],
+            "fall2": marioImages[2],
+            "fall1": marioImages[3],
+            "swap": marioImages[4],
+            "stay": marioImages[5],
+            "run3": marioImages[6],
+            "run2": marioImages[7]
         }
 
     def draw(self, screen):
