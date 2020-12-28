@@ -33,5 +33,5 @@ while True:
     screen.fill(color)
     screen.blit(oiram.images["go"], (oiram.coordinates.x, oiram.coordinates.y))
     pygame.display.flip()
-
+    
 
