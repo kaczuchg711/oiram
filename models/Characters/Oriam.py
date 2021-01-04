@@ -5,8 +5,8 @@ controlled sprite on the screen.
 import pygame
  
 import constants
- 
-from models.Level.platforms import MovingPlatform
+
+from models.Level.platforms import MovingPlatform, DestroPlatform
 from models.spritesheet_functions import SpriteSheet
  
 class Oriam(pygame.sprite.Sprite):
@@ -72,7 +72,10 @@ class Oriam(pygame.sprite.Sprite):
                 self.stop()
             if event.key == pygame.K_RIGHT and self.change_x > 0:
                 self.stop()
- 
+
+    def _is_under_block(self, block):
+        return self.rect.centerx > block.rect.centerx - block.rect.width/2  and self.rect.centerx < block.rect.centerx + block.rect.width/2 and self.rect.y - block.rect.y + block.rect.height > 0
+
     def update(self):
         """ Move the player. """
         # Gravity
@@ -87,7 +90,11 @@ class Oriam(pygame.sprite.Sprite):
         else:
             frame = (pos // 60) % len(self.walking_frames_l)
             self.image = self.walking_frames_l[frame]
- 
+        blocks = self.level.platform_list
+        for block in blocks:
+            if isinstance(block, DestroPlatform) and self._is_under_block(block) and self.rect.y - (block.rect.y + block.rect.height) < 1:
+                block.kill()
+
         # See if we hit anything
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
         for block in block_hit_list:
@@ -98,7 +105,6 @@ class Oriam(pygame.sprite.Sprite):
             elif self.change_x < 0:
                 # Otherwise if we are moving left, do the opposite.
                 self.rect.left = block.rect.right
- 
         # Move up/down
         self.rect.y += self.change_y
  
