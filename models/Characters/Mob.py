@@ -64,7 +64,7 @@ class Mob(pygame.sprite.Sprite):
 
         self.rect.x += self.delta_x
         
-        pos = self.rect.x + self.level.world_shift
+        pos = self.rect.x + self.level.world_shift_x
         if self.direction == "R":
             frame = (pos // 30) % len(self.walking_frames_r)
             self.image = self.walking_frames_r[frame]
@@ -106,9 +106,4 @@ class Mob(pygame.sprite.Sprite):
             self.delta_y = 1
         else:
             self.delta_y += .35
- 
-        # See if we are on the ground.
-        if self.rect.y >= constants.SCREEN_HEIGHT - self.rect.height and self.delta_y >= 0:
-            self.delta_y = 0
-            self.rect.y = constants.SCREEN_HEIGHT - self.rect.height
  

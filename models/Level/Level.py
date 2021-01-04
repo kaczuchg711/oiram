@@ -21,7 +21,8 @@ class Level():
         self.background = None
  
         # How far this world has been scrolled left/right
-        self.world_shift = 0
+        self.world_shift_x = 0
+        self.world_shift_y = 0
         self.level_limit = -1000
         self.platform_list = pygame.sprite.Group()
         self.enemy_list = pygame.sprite.Group()
@@ -41,18 +42,18 @@ class Level():
         # to give a feeling of depth.
         screen.fill(constants.BLUE)
         #layer 1 
-        screen.blit(self.background,(self.world_shift // 1,-360))
+        screen.blit(self.background,(self.world_shift_x // 2,(self.world_shift_y // 1) -360))
         #layer 2
-
+        screen.blit(self.background2,(self.world_shift_x // 1,(self.world_shift_y // 1) -360))
         # Draw all the sprite lists that we have
         self.platform_list.draw(screen)
         self.enemy_list.draw(screen)
  
-    def shift_world(self, shift_x):
+    def shift_world_x(self, shift_x):
         """ When the user moves left/right and we need to scroll everything: """
  
         # Keep track of the shift amount
-        self.world_shift += shift_x
+        self.world_shift_x += shift_x
  
         # Go through all the sprite lists and shift
         for platform in self.platform_list:
@@ -60,3 +61,16 @@ class Level():
  
         for enemy in self.enemy_list:
             enemy.rect.x += shift_x
+    
+    def shift_world_y(self, shift_y):
+        """ When the user moves left/right and we need to scroll everything: """
+ 
+        # Keep track of the shift amount
+        self.world_shift_y += shift_y
+ 
+        # Go through all the sprite lists and shift
+        for platform in self.platform_list:
+            platform.rect.y += shift_y
+ 
+        for enemy in self.enemy_list:
+            enemy.rect.y += shift_y

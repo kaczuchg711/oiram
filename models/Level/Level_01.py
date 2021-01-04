@@ -15,12 +15,15 @@ class Level_01(Level):
         Level.__init__(self, player)
  
         self.background = pygame.image.load("static/img/world1_1.png").convert()
+        self.background2 = pygame.image.load("static/img/world1_2.png").convert()
         self.background.set_colorkey(constants.WHITE)
+        self.background2.set_colorkey(constants.BLUE)
         self.level_limit = -2500
  
         # Array with type of platform, and x, y location of the platform.
         bricks = [[platforms.BRICK2,20, 6],
                 [platforms.BRICK2,22, 6],
+                [platforms.BRICK2,22, 10],
                 [platforms.BRICK2,24,6],
                 [platforms.PIPE_TOP_LEFT,28, 4],
                 [platforms.PIPE_TOP_RIGHT,29,4],
@@ -32,6 +35,7 @@ class Level_01(Level):
                 [platforms.PIPE_RIGHT,39,4],
                 [platforms.PIPE_LEFT,38, 3],
                 [platforms.PIPE_RIGHT,39,3],]
+
         for platform in bricks:
             block = platforms.DestroPlatform(platform[0])
             block.rect.x = platform[1]*64
