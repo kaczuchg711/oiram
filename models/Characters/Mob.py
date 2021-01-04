@@ -46,6 +46,8 @@ class Mob(pygame.sprite.Sprite):
         # Set a reference to the image rect.
         self.rect = self.image.get_rect()
 
+        self.world_shift_x_old = 0
+
     def update(self):
           # Gravity
         self.calc_grav()
@@ -66,12 +68,15 @@ class Mob(pygame.sprite.Sprite):
         self.rect.x += self.delta_x
         
         pos = self.rect.x + self.level.world_shift_x
-        if self.direction == "R":
-            frame = (pos // 30) % len(self.walking_frames_r)
-            self.image = self.walking_frames_r[frame]
-        else:
-            frame = (pos // 30) % len(self.walking_frames_l)
-            self.image = self.walking_frames_l[frame]
+        if self.world_shift_x_old == self.level.world_shift_x:
+            if self.direction == "R":
+                frame = (pos // 30) % len(self.walking_frames_r)
+                self.image = self.walking_frames_r[frame]
+            else:
+                frame = (pos // 30) % len(self.walking_frames_l)
+                self.image = self.walking_frames_l[frame]
+        
+        self.world_shift_x_old = self.level.world_shift_x
 
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
         for block in block_hit_list:
