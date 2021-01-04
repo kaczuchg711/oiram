@@ -105,7 +105,6 @@ class Oriam(pygame.sprite.Sprite):
             elif self.change_x < 0:
                 # Otherwise if we are moving left, do the opposite.
                 self.rect.left = block.rect.right
- 
         # Move up/down
         self.rect.y += self.change_y
  
