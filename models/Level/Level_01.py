@@ -40,7 +40,7 @@ class Level_01(Level):
                            [platforms.QUESTION,23, 6],]
 
         for platform in question_blocks:
-            block = platforms.DestroPlatform(platform[0])
+            block = platforms.QuestionPlatform(platform[0])
             block.rect.x = platform[1]*64
             block.rect.y = constants.SCREEN_HEIGHT - (platform[2]*64)
             block.player = self.player

@@ -94,6 +94,7 @@ class Oriam(pygame.sprite.Sprite):
         for block in blocks:
             if isinstance(block, DestroPlatform) and self._is_under_block(block) and self.rect.y - (block.rect.y + block.rect.height) < 1:
                 block.kill()
+                constants.score += 1
 
         # See if we hit anything
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
