@@ -104,7 +104,6 @@ def main():
 
         # Go ahead and update the screen with what we've drawn.
         pygame.display.flip()
-
     # Be IDLE friendly. If you forget this line, the program will 'hang'
     # on exit.
     pygame.quit()
