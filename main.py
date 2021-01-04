@@ -1,6 +1,7 @@
 import pygame
 
 import constants
+from models.Characters.Mob import Mob
 from models.Level.Level import Level
 from models.Level.Level_01 import Level_01
 from models.Level.Level_02 import Level_02
@@ -18,6 +19,8 @@ def main():
 
     player = Oriam()
 
+    mob = Mob()
+
     level_list = []
     level_list.append(Level_01(player))
     level_list.append(Level_02(player))
@@ -29,9 +32,15 @@ def main():
     active_sprite_list = pygame.sprite.Group()
     player.level = current_level
 
-    player.rect.x = 340
+    player.rect.x = 300
     player.rect.y = constants.SCREEN_HEIGHT - player.rect.height
     active_sprite_list.add(player)
+
+    mob.rect.x = 400
+    mob.rect.y = constants.SCREEN_HEIGHT - mob.rect.height
+
+    active_sprite_list.add(mob)
+
 
     # Loop until the user clicks the close button.
     done = False
@@ -58,6 +67,18 @@ def main():
             diff = player.rect.right - 500
             player.rect.right = 500
             current_level.shift_world(-diff)
+        # self.rect.colliderect(sprite.rect)
+        mob.HEIGHT = 40
+        player.HEIGHT = 120
+        if player.rect.colliderect(mob):
+            if player.rect.y + player.HEIGHT + 10 < mob.rect.y:
+                player.kill()
+                print(player.rect.y + player.HEIGHT)
+                print(mob.rect.y)
+            else:
+                print(player.rect.y + player.HEIGHT)
+                print(mob.rect.y)
+                mob.kill()
 
         # If the player gets near the left side, shift the world right (+x)
         if player.rect.left <= 120:
