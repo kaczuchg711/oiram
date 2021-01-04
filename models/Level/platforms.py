@@ -14,10 +14,11 @@ from models.spritesheet_functions import SpriteSheet
  
 BRICK1            = (0, 0, 64, 64)
 BRICK2            = (64, 0, 64, 64)
-BRICK3            = (128, 0, 64, 64)
-STONE_PLATFORM_LEFT   = (0, 0, 64, 64)
-STONE_PLATFORM_MIDDLE = (0, 0, 64, 64)
-STONE_PLATFORM_RIGHT  = (0, 0, 64, 64)
+BRICK3            = (0, 64, 64, 64)
+PIPE_TOP_LEFT   = (0, 512, 64, 64)
+PIPE_TOP_RIGHT = (64, 512, 64, 64)
+PIPE_LEFT  = (0, 576, 64, 64)
+PIPE_RIGHT  = (64, 576, 64, 64)
  
 class Platform(pygame.sprite.Sprite):
     """ Platform the user can jump on """
@@ -36,7 +37,9 @@ class Platform(pygame.sprite.Sprite):
                                             sprite_sheet_data[3])
  
         self.rect = self.image.get_rect()
- 
+
+class DestroPlatform(Platform):
+    pass
  
 class MovingPlatform(Platform):
     """ This is a fancier platform that can actually move. """
