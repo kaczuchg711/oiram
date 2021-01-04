@@ -19,7 +19,7 @@ class Level_01(Level):
         self.level_limit = -2500
  
         # Array with type of platform, and x, y location of the platform.
-        level = [[platforms.BRICK2,20, 6],
+        bricks = [[platforms.BRICK2,20, 6],
                 [platforms.BRICK2,22, 6],
                 [platforms.BRICK2,24,6],
                 [platforms.PIPE_TOP_LEFT,28, 4],
@@ -32,14 +32,22 @@ class Level_01(Level):
                 [platforms.PIPE_RIGHT,39,4],
                 [platforms.PIPE_LEFT,38, 3],
                 [platforms.PIPE_RIGHT,39,3],]
+        for platform in bricks:
+            block = platforms.DestroPlatform(platform[0])
+            block.rect.x = platform[1]*64
+            block.rect.y = constants.SCREEN_HEIGHT - (platform[2]*64)
+            block.player = self.player
+            self.platform_list.add(block)
+
+        floor = []
         for x in range(112):
             if x in [69, 70, 86,87,88]:
                 continue
-            level.append([platforms.BRICK1, x, 2])
+            floor.append([platforms.BRICK1, x, 2])
         #    level.append([platforms.BRICK1, x*64, constants.SCREEN_HEIGHT-64])
  
         # Go through the array above and add platforms
-        for platform in level:
+        for platform in floor:
             block = platforms.Platform(platform[0])
             block.rect.x = platform[1]*64
             block.rect.y = constants.SCREEN_HEIGHT - (platform[2]*64)

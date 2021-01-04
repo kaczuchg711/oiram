@@ -37,7 +37,9 @@ class Platform(pygame.sprite.Sprite):
                                             sprite_sheet_data[3])
  
         self.rect = self.image.get_rect()
- 
+
+class DestroPlatform(Platform):
+    pass
  
 class MovingPlatform(Platform):
     """ This is a fancier platform that can actually move. """
