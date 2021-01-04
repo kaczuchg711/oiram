@@ -74,7 +74,7 @@ class Oriam(pygame.sprite.Sprite):
                 self.stop()
 
     def _is_under_block(self, block):
-        return self.rect.x > block.rect.x - 10 and self.rect.x < block.rect.x + block.rect.width + 10 and self.rect.y - block.rect.y + block.rect.height > 0
+        return self.rect.centerx > block.rect.centerx - block.rect.width/2  and self.rect.centerx < block.rect.centerx + block.rect.width/2 and self.rect.y - block.rect.y + block.rect.height > 0
 
     def update(self):
         """ Move the player. """
