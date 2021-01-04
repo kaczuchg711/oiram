@@ -1,35 +1,116 @@
-import sys, pygame
-from time import sleep
+import pygame
 
-from pygame.time import Clock
+import constants
+from models.Characters.Mob import Mob
+from models.Level.Level import Level
+from models.Level.Level_01 import Level_01
+from models.Level.Level_02 import Level_02
 
-from controlers.CharacterMoveController import CharacterMoveController
-from models.Characters.Oiram import Oiram
+from models.Characters.Oriam import Oriam
 
-pygame.init()
 
-size = width, height = 500, 300
-color = 0, 0, 0
+def main():
+    pygame.init()
 
-screen = pygame.display.set_mode(size)
+    size = [constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT]
+    screen = pygame.display.set_mode(size)
 
-mario = pygame.image.load("static/img/oiram/oiram_stay.png")
+    pygame.display.set_caption("Platformer with sprite sheets")
 
-ballrect = mario.get_rect()
+    player = Oriam()
 
-clock = Clock()
+    mob = Mob()
 
-oiram = Oiram(clock, "static/img/oiram")
-oiramMoveController = CharacterMoveController(oiram)
+    level_list = []
+    level_list.append(Level_01(player))
+    level_list.append(Level_02(player))
 
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            sys.exit()
-    keyboardState = pygame.key.get_pressed()
-    oiramMoveController.move_character_depend_on_key(keyboardState)
+    # Set the current level
+    current_level_no = 0
+    current_level = level_list[current_level_no]
 
-    screen.fill(color)
-    oiram.draw(screen)
-    pygame.display.flip()
-    # pygame.time.delay(10)
+    active_sprite_list = pygame.sprite.Group()
+    player.level = current_level
+
+    player.rect.x = 300
+    player.rect.y = constants.SCREEN_HEIGHT - player.rect.height
+    active_sprite_list.add(player)
+
+    mob.rect.x = 400
+    mob.rect.y = constants.SCREEN_HEIGHT - mob.rect.height
+
+    active_sprite_list.add(mob)
+
+
+    # Loop until the user clicks the close button.
+    done = False
+
+    # Used to manage how fast the screen updates
+    clock = pygame.time.Clock()
+
+    # -------- Main Program Loop -----------
+    while not done:
+        for event in pygame.event.get():  # User did something
+            if event.type == pygame.QUIT:  # If user clicked close
+                done = True  # Flag that we are done so we exit this loop
+
+            player.move_character_depend_on_key(event)
+
+        # Update the player.
+        active_sprite_list.update()
+
+        # Update items in the level
+        current_level.update()
+
+        # If the player gets near the right side, shift the world left (-x)
+        if player.rect.right >= 500:
+            diff = player.rect.right - 500
+            player.rect.right = 500
+            current_level.shift_world(-diff)
+        # self.rect.colliderect(sprite.rect)
+        mob.HEIGHT = 40
+        player.HEIGHT = 120
+        if player.rect.colliderect(mob):
+            if player.rect.y + player.HEIGHT + 10 < mob.rect.y:
+                player.kill()
+                print(player.rect.y + player.HEIGHT)
+                print(mob.rect.y)
+            else:
+                print(player.rect.y + player.HEIGHT)
+                print(mob.rect.y)
+                mob.kill()
+
+        # If the player gets near the left side, shift the world right (+x)
+        if player.rect.left <= 120:
+            diff = 120 - player.rect.left
+            player.rect.left = 120
+            current_level.shift_world(diff)
+
+        # If the player gets to the end of the level, go to the next level
+        current_position = player.rect.x + current_level.world_shift
+        if current_position < current_level.level_limit:
+            player.rect.x = 120
+            if current_level_no < len(level_list) - 1:
+                current_level_no += 1
+                current_level = level_list[current_level_no]
+                player.level = current_level
+
+        # ALL CODE TO DRAW SHOULD GO BELOW THIS COMMENT
+        current_level.draw(screen)
+        active_sprite_list.draw(screen)
+
+        # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
+
+        # Limit to 60 frames per second
+        clock.tick(60)
+
+        # Go ahead and update the screen with what we've drawn.
+        pygame.display.flip()
+
+    # Be IDLE friendly. If you forget this line, the program will 'hang'
+    # on exit.
+    pygame.quit()
+
+
+if __name__ == "__main__":
+    main()
