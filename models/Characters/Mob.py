@@ -2,9 +2,10 @@ import pygame
 
 from models.spritesheet_functions import SpriteSheet
 
+
 class Mob(pygame.sprite.Sprite):
 
-    def __init__(self,player):
+    def __init__(self, player):
         """ Constructor function """
         self.player = player
         # Call the parent's constructor
@@ -12,8 +13,7 @@ class Mob(pygame.sprite.Sprite):
 
         # -- Attributes
         # Set speed vector of player
-        self.change_x = 0
-        self.change_y = 0
+        self.delta_x = 1
 
         # This holds all the images for the animated walk left/right
         # of our player
@@ -47,11 +47,27 @@ class Mob(pygame.sprite.Sprite):
         if hit:
             leg_height = self.player.rect.y + self.player.height
             if self.player.rect.colliderect(self):
-                if leg_height - 10 < self.rect.y:
+                if leg_height - 20 < self.rect.y:
                     self.kill()
                 else:
                     self.player.kill()
                     exit(0)
+        # Move left/right
 
+        self.rect.x += self.delta_x
+        pos = self.rect.x + self.level.world_shift
+        if self.direction == "R":
+            frame = (pos // 30) % len(self.walking_frames_r)
+            self.image = self.walking_frames_r[frame]
+        else:
+            frame = (pos // 30) % len(self.walking_frames_l)
+            self.image = self.walking_frames_l[frame]
 
-
+        block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
+        for block in block_hit_list:
+            # If we are moving right,
+            # set our right side to the left side of the item we hit
+            if self.delta_x == 1:
+                self.delta_x = -1
+            else:
+                self.delta_x = 1
