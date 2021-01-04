@@ -10,7 +10,6 @@ from models.Characters.Oriam import Oriam
 
 
 def main():
-    i = 99
     pygame.init()
 
     size = [constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT]
