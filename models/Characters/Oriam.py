@@ -6,7 +6,7 @@ import pygame
 
 import constants
 
-from models.Level.platforms import MovingPlatform, DestroPlatform
+from models.Level.platforms import MovingPlatform, DestroPlatform, QuestionPlatform
 from models.spritesheet_functions import SpriteSheet
 
 
@@ -38,13 +38,13 @@ class Oriam(pygame.sprite.Sprite):
         self.level = None
 
         sprite_sheet = SpriteSheet("static/img/oiram/OIRAM_walk2.png")
-        image = sprite_sheet.get_image(32, 31, 64, 128)
+        image = sprite_sheet.get_image(32, 31, 62, 128)
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(129, 31, 64, 128)
+        image = sprite_sheet.get_image(129, 31, 62, 128)
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(226, 31, 64, 128)
+        image = sprite_sheet.get_image(226, 31, 62, 128)
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(517, 31, 64, 128)
+        image = sprite_sheet.get_image(517, 31, 62, 128)
         self.walking_frames_r.append(image)
 
         for image_to_rotate in self.walking_frames_r:
@@ -75,11 +75,17 @@ class Oriam(pygame.sprite.Sprite):
     def _is_under_block(self, block):
         return block.rect.centerx - block.rect.width / 2 < self.rect.centerx < block.rect.centerx + block.rect.width / 2 and self.rect.y - block.rect.y + block.rect.height > 0
 
+    def _is_close_under(self, block):
+        return self.rect.y - (block.rect.y + block.rect.height) < 1
+
+    def _check_fatal_fall(self):
+        if self.level.world_shift_y < -200:
+            exit(0)
+
     def update(self):
         """ Move the player. """
         # Gravity
         self.calc_grav()
-
         # Move left/right
         self.rect.x += self.change_x
         pos = self.rect.x + self.level.world_shift_x
@@ -89,11 +95,18 @@ class Oriam(pygame.sprite.Sprite):
         else:
             frame = (pos // 60) % len(self.walking_frames_l)
             self.image = self.walking_frames_l[frame]
+
+        self._check_fatal_fall()
+
         blocks = self.level.platform_list
         for block in blocks:
-            if isinstance(block, DestroPlatform) and self._is_under_block(block) and self.rect.y - (
-                    block.rect.y + block.rect.height) < 1:
-                block.kill()
+            if self._is_close_under(block) and self._is_under_block(block) :
+                if isinstance(block, DestroPlatform):
+                    block.kill()
+                    constants.score += 1
+                if isinstance(block, QuestionPlatform):
+                    block.hit_count_up()
+
 
 
 

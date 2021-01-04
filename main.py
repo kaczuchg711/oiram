@@ -15,7 +15,7 @@ def main():
     size = [constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT]
     screen = pygame.display.set_mode(size)
 
-    pygame.display.set_caption("Platformer with sprite sheets")
+    pygame.display.set_caption("ORIAM: " + str(constants.score))
 
     player = Oriam()
 
@@ -101,9 +101,10 @@ def main():
 
         # Limit to 60 frames per second
         clock.tick(60)
-
+        pygame.display.set_caption("ORIAM: " + str(constants.score))
         # Go ahead and update the screen with what we've drawn.
         pygame.display.flip()
+
     # Be IDLE friendly. If you forget this line, the program will 'hang'
     # on exit.
     pygame.quit()

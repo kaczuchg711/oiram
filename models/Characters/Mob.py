@@ -57,6 +57,7 @@ class Mob(pygame.sprite.Sprite):
             if self.player.rect.colliderect(self):
                 if leg_height - 20 < self.rect.y:
                     self.kill()
+                    constants.score += 5
                 else:
                     self.player.kill()
                     exit(0)

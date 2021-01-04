@@ -23,9 +23,30 @@ class Level_01(Level):
         # Array with type of platform, and x, y location of the platform.
         bricks = [[platforms.BRICK2,20, 6],
                 [platforms.BRICK2,22, 6],
-                [platforms.BRICK2,22, 10],
                 [platforms.BRICK2,24,6],
-                [platforms.PIPE_TOP_LEFT,28, 4],
+                ]
+
+        for platform in bricks:
+            block = platforms.DestroPlatform(platform[0])
+            block.rect.x = platform[1]*64
+            block.rect.y = constants.SCREEN_HEIGHT - (platform[2]*64)
+            block.player = self.player
+            self.platform_list.add(block)
+
+
+        question_blocks = [[platforms.QUESTION,16, 6],
+                          [platforms.QUESTION,21, 6],
+                           [platforms.QUESTION,22, 10],
+                           [platforms.QUESTION,23, 6],]
+
+        for platform in question_blocks:
+            block = platforms.QuestionPlatform(platform[0])
+            block.rect.x = platform[1]*64
+            block.rect.y = constants.SCREEN_HEIGHT - (platform[2]*64)
+            block.player = self.player
+            self.platform_list.add(block)
+
+        floor = [[platforms.PIPE_TOP_LEFT,28, 4],
                 [platforms.PIPE_TOP_RIGHT,29,4],
                 [platforms.PIPE_LEFT,28, 3],
                 [platforms.PIPE_RIGHT,29,3],
@@ -35,15 +56,6 @@ class Level_01(Level):
                 [platforms.PIPE_RIGHT,39,4],
                 [platforms.PIPE_LEFT,38, 3],
                 [platforms.PIPE_RIGHT,39,3],]
-
-        for platform in bricks:
-            block = platforms.DestroPlatform(platform[0])
-            block.rect.x = platform[1]*64
-            block.rect.y = constants.SCREEN_HEIGHT - (platform[2]*64)
-            block.player = self.player
-            self.platform_list.add(block)
-
-        floor = []
         for x in range(112):
             if x in [69, 70, 86,87,88]:
                 continue
@@ -68,8 +80,8 @@ class Level_01(Level):
         block.player = self.player
         block.level = self
         self.platform_list.add(block)
- 
 
+     
         mob = Mob(player)
         mob.level = self
         mob.rect.x = 10*64
