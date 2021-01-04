@@ -10,6 +10,7 @@ from models.Characters.Oriam import Oriam
 
 
 def main():
+    i = 99
     pygame.init()
 
     size = [constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT]
@@ -19,7 +20,7 @@ def main():
 
     player = Oriam()
 
-    mob = Mob()
+    mob = Mob(player)
 
     level_list = []
     level_list.append(Level_01(player))
@@ -39,7 +40,7 @@ def main():
     mob.rect.x = 400
     mob.rect.y = constants.SCREEN_HEIGHT - mob.rect.height
 
-    active_sprite_list.add(mob)
+    current_level.enemy_list.add(mob)
 
 
     # Loop until the user clicks the close button.
@@ -59,6 +60,7 @@ def main():
         # Update the player.
         active_sprite_list.update()
 
+
         # Update items in the level
         current_level.update()
 
@@ -68,17 +70,7 @@ def main():
             player.rect.right = 500
             current_level.shift_world(-diff)
         # self.rect.colliderect(sprite.rect)
-        mob.HEIGHT = 40
-        player.HEIGHT = 120
-        if player.rect.colliderect(mob):
-            if player.rect.y + player.HEIGHT + 10 < mob.rect.y:
-                player.kill()
-                print(player.rect.y + player.HEIGHT)
-                print(mob.rect.y)
-            else:
-                print(player.rect.y + player.HEIGHT)
-                print(mob.rect.y)
-                mob.kill()
+
 
         # If the player gets near the left side, shift the world right (+x)
         if player.rect.left <= 120:
