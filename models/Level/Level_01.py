@@ -3,6 +3,7 @@ import pygame
 import constants
 from models.Level import platforms
 from models.Level.Level import Level
+from models.Characters.Mob import Mob
 
 class Level_01(Level):
     """ Definition for level 1. """
@@ -48,7 +49,7 @@ class Level_01(Level):
         # Add a custom moving platform
         block = platforms.MovingPlatform(platforms.BRICK3)
         block.rect.x = 1350
-        block.rect.y = 280
+        block.rect.y = constants.SCREEN_HEIGHT - 3 * 64
         block.boundary_left = 1350
         block.boundary_right = 1600
         block.change_x = 1
@@ -56,3 +57,9 @@ class Level_01(Level):
         block.level = self
         self.platform_list.add(block)
  
+
+        mob = Mob(player)
+        mob.level = self
+        mob.rect.x = 10*64
+        mob.rect.y = 5*64
+        self.enemy_list.add(mob)

@@ -25,7 +25,7 @@ class Oriam(pygame.sprite.Sprite):
         # Set speed vector of player
         self.change_x = 0
         self.change_y = 0
- 
+
         # This holds all the images for the animated walk left/right
         # of our player
         self.walking_frames_l = []
