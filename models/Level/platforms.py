@@ -12,12 +12,12 @@ from models.spritesheet_functions import SpriteSheet
 #   Width of sprite
 #   Height of sprite
  
-GRASS_LEFT            = (576, 720, 70, 70)
-GRASS_RIGHT           = (576, 576, 70, 70)
-GRASS_MIDDLE          = (504, 576, 70, 70)
-STONE_PLATFORM_LEFT   = (432, 720, 70, 40)
-STONE_PLATFORM_MIDDLE = (648, 648, 70, 40)
-STONE_PLATFORM_RIGHT  = (792, 648, 70, 40)
+BRICK1            = (0, 0, 64, 64)
+BRICK2            = (64, 0, 64, 64)
+BRICK3            = (128, 0, 64, 64)
+STONE_PLATFORM_LEFT   = (0, 0, 64, 64)
+STONE_PLATFORM_MIDDLE = (0, 0, 64, 64)
+STONE_PLATFORM_RIGHT  = (0, 0, 64, 64)
  
 class Platform(pygame.sprite.Sprite):
     """ Platform the user can jump on """
@@ -28,7 +28,7 @@ class Platform(pygame.sprite.Sprite):
             code. """
         super().__init__()
  
-        sprite_sheet = SpriteSheet("static/img/tiles_spritesheet.png")
+        sprite_sheet = SpriteSheet("static/img/tileset.png")
         # Grab the image for this platform
         self.image = sprite_sheet.get_image(sprite_sheet_data[0],
                                             sprite_sheet_data[1],
