@@ -15,6 +15,7 @@ from models.spritesheet_functions import SpriteSheet
 BRICK1            = (0, 0, 64, 64)
 BRICK2            = (64, 0, 64, 64)
 BRICK3            = (0, 64, 64, 64)
+QUESTION          = (960,0,64,64)
 PIPE_TOP_LEFT   = (0, 512, 64, 64)
 PIPE_TOP_RIGHT = (64, 512, 64, 64)
 PIPE_LEFT  = (0, 576, 64, 64)
@@ -41,6 +42,9 @@ class Platform(pygame.sprite.Sprite):
 class DestroPlatform(Platform):
     pass
  
+class QuestionPlatform(Platform):
+    pass
+
 class MovingPlatform(Platform):
     """ This is a fancier platform that can actually move. """
  
@@ -102,7 +106,8 @@ class MovingPlatform(Platform):
  
         # Check the boundaries and see if we need to reverse
         # direction.
-        if self.rect.bottom > self.boundary_bottom or self.rect.top < self.boundary_top:
+        cur_pos = self.rect.bottom - self.level.world_shift_y
+        if cur_pos > self.boundary_bottom or cur_pos < self.boundary_top:
             self.change_y *= -1
  
         cur_pos = self.rect.x - self.level.world_shift_x

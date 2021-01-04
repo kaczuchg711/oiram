@@ -38,13 +38,13 @@ class Oriam(pygame.sprite.Sprite):
         self.level = None
 
         sprite_sheet = SpriteSheet("static/img/oiram/OIRAM_walk2.png")
-        image = sprite_sheet.get_image(32, 31, 64, 128)
+        image = sprite_sheet.get_image(32, 31, 62, 128)
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(129, 31, 64, 128)
+        image = sprite_sheet.get_image(129, 31, 62, 128)
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(226, 31, 64, 128)
+        image = sprite_sheet.get_image(226, 31, 62, 128)
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(517, 31, 64, 128)
+        image = sprite_sheet.get_image(517, 31, 62, 128)
         self.walking_frames_r.append(image)
 
         for image_to_rotate in self.walking_frames_r:
