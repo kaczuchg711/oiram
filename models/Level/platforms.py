@@ -105,6 +105,6 @@ class MovingPlatform(Platform):
         if self.rect.bottom > self.boundary_bottom or self.rect.top < self.boundary_top:
             self.change_y *= -1
  
-        cur_pos = self.rect.x - self.level.world_shift
+        cur_pos = self.rect.x - self.level.world_shift_x
         if cur_pos < self.boundary_left or cur_pos > self.boundary_right:
             self.change_x *= -1

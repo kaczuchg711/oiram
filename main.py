@@ -59,14 +59,30 @@ def main():
         if player.rect.right >= 500:
             diff = player.rect.right - 500
             player.rect.right = 500
-            current_level.shift_world(-diff)
+            current_level.shift_world_x(-diff)
         # self.rect.colliderect(sprite.rect)
 
         # If the player gets near the left side, shift the world right (+x)
         if player.rect.left <= 120:
             diff = 120 - player.rect.left
             player.rect.left = 120
-            current_level.shift_world(diff)
+            current_level.shift_world_x(diff)
+
+
+        # If the player gets near the top, shift the world down (-y)
+        tmp = 64
+        if player.rect.top <= tmp:
+            diff = player.rect.top - tmp
+            player.rect.top = tmp
+            current_level.shift_world_y(-diff)
+        # self.rect.colliderect(sprite.rect)
+
+        # If the player gets near the bottom, shift the world up (+y)
+        tmp = constants.SCREEN_HEIGHT - 128
+        if player.rect.bottom >= tmp:
+            diff = tmp - player.rect.bottom
+            player.rect.bottom = tmp
+            current_level.shift_world_y(diff)
 
         # If the player gets to the end of the level, go to the next level
        # current_position = player.rect.x + current_level.world_shift
