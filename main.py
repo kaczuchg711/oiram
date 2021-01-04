@@ -23,7 +23,7 @@ def main():
 
     level_list = []
     level_list.append(Level_01(player))
-    level_list.append(Level_02(player))
+    #level_list.append(Level_02(player))
 
     # Set the current level
     current_level_no = 0
@@ -32,8 +32,8 @@ def main():
     active_sprite_list = pygame.sprite.Group()
     player.level = current_level
 
-    player.rect.x = 300
-    player.rect.y = constants.SCREEN_HEIGHT - player.rect.height
+    player.rect.x = 340
+    player.rect.y = constants.SCREEN_HEIGHT - player.rect.height - 128
     active_sprite_list.add(player)
 
     mob.rect.x = 400
@@ -58,7 +58,7 @@ def main():
 
         # Update the player.
         active_sprite_list.update()
-
+        
         # Update items in the level
         current_level.update()
 
@@ -87,13 +87,13 @@ def main():
             current_level.shift_world(diff)
 
         # If the player gets to the end of the level, go to the next level
-        current_position = player.rect.x + current_level.world_shift
-        if current_position < current_level.level_limit:
-            player.rect.x = 120
-            if current_level_no < len(level_list) - 1:
-                current_level_no += 1
-                current_level = level_list[current_level_no]
-                player.level = current_level
+       # current_position = player.rect.x + current_level.world_shift
+      #  if current_position < current_level.level_limit:
+      #      player.rect.x = 120
+      #      if current_level_no < len(level_list) - 1:
+     #           current_level_no += 1
+      #          current_level = level_list[current_level_no]
+      #          player.level = current_level
 
         # ALL CODE TO DRAW SHOULD GO BELOW THIS COMMENT
         current_level.draw(screen)

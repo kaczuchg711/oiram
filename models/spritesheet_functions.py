@@ -21,13 +21,13 @@ class SpriteSheet(object):
             and the width and height of the sprite. """
  
         # Create a new blank image
-        image = pygame.Surface([width, height]).convert_alpha()
+        image = pygame.Surface([width, height], pygame.SRCALPHA)
  
         # Copy the sprite from the large sheet onto the smaller image
         image.blit(self.sprite_sheet, (0, 0), (x, y, width, height))
  
         # Assuming black works as the transparent color
-        image.set_colorkey(constants.BLACK)
+        #image.set_colorkey(constants.BLACK)
  
         # Return the image
         return image
