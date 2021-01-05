@@ -21,7 +21,7 @@ def main():
 
     level_list = []
     level_list.append(Level_01(player))
-    #level_list.append(Level_02(player))
+    #level_list.append(Level_01(player))
 
     # Set the current level
     current_level_no = 0
@@ -101,7 +101,7 @@ def main():
 
         # Limit to 60 frames per second
         clock.tick(60)
-        pygame.display.set_caption("ORIAM: " + str(constants.score))
+        pygame.display.set_caption("OIRAM: " + str(constants.score))
         # Go ahead and update the screen with what we've drawn.
         
         screen.blit(pygame.transform.flip(screen, True, False), (0, 0))

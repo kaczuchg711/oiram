@@ -18,7 +18,7 @@ class Level_01(Level):
         self.background2 = pygame.image.load("static/img/world1_2.png").convert()
         self.background.set_colorkey(constants.WHITE)
         self.background2.set_colorkey(constants.BLUE)
-        self.level_limit = -2500
+        self.level_limit = -100 * 64
  
         # Array with type of platform, and x, y location of the platform.
         bricks = [[platforms.BRICK2,20, 6],
