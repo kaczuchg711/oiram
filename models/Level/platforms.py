@@ -27,16 +27,17 @@ PIPE_RIGHT = (64, 576, 64, 64)
 class Platform(pygame.sprite.Sprite):
     """ Platform the user can jump on """
 
-
+    sprite_sheet = None
     def __init__(self, sprite_sheet_data):
         """ Platform constructor. Assumes constructed with user passing in
             an array of 5 numbers like what's defined at the top of this
             code. """
         super().__init__()
-        self.sprite_sheet = SpriteSheet("static/img/tileset.png")
+        if Platform.sprite_sheet == None:
+            Platform.sprite_sheet = SpriteSheet("static/img/tileset.png")
 
         # Grab the image for this platform
-        self.image = self.sprite_sheet.get_image(sprite_sheet_data[0],
+        self.image = Platform.sprite_sheet.get_image(sprite_sheet_data[0],
                                             sprite_sheet_data[1],
                                             sprite_sheet_data[2],
                                             sprite_sheet_data[3])
@@ -64,7 +65,7 @@ class QuestionPlatform(Platform):
 
 
     def change_to_blank(self):
-        self.image = self.sprite_sheet.get_image(QUESTION_BLANK[0],QUESTION_BLANK[1],QUESTION_BLANK[2],QUESTION_BLANK[3])
+        self.image = Platform.sprite_sheet.get_image(QUESTION_BLANK[0],QUESTION_BLANK[1],QUESTION_BLANK[2],QUESTION_BLANK[3])
 
 
 class MovingPlatform(Platform):

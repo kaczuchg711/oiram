@@ -11,7 +11,7 @@ from models.Characters.Oriam import Oriam
 
 def main():
     pygame.init()
-
+    
     size = [constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT]
     screen = pygame.display.set_mode(size)
 

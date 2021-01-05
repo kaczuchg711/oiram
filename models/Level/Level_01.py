@@ -56,11 +56,12 @@ class Level_01(Level):
                 [platforms.PIPE_RIGHT,39,4],
                 [platforms.PIPE_LEFT,38, 3],
                 [platforms.PIPE_RIGHT,39,3],]
+                
         for x in range(112):
             if x in [69, 70, 86,87,88]:
                 continue
             floor.append([platforms.BRICK1, x, 2])
-        #    level.append([platforms.BRICK1, x*64, constants.SCREEN_HEIGHT-64])
+            floor.append([platforms.BRICK1, x, 1])
  
         # Go through the array above and add platforms
         for platform in floor:
@@ -70,13 +71,38 @@ class Level_01(Level):
             block.player = self.player
             self.platform_list.add(block)
  
-        # Add a custom moving platform
+        # # Add a custom moving platform
         block = platforms.MovingPlatform(platforms.BRICK3)
-        block.rect.x = 1350
-        block.rect.y = constants.SCREEN_HEIGHT - 3 * 64
-        block.boundary_left = 1350
-        block.boundary_right = 1600
+        block.rect.x = 45 * 64
+        block.rect.y = constants.SCREEN_HEIGHT - 5 * 64
+        block.boundary_left = 45 * 64
+        block.boundary_right = 50 * 64
         block.change_x = 1
+        block.player = self.player
+        block.level = self
+        self.platform_list.add(block)
+
+        # # Add a custom moving platform
+        block = platforms.MovingPlatform(platforms.BRICK3)
+        block.rect.x = 55 * 64
+        block.rect.y = constants.SCREEN_HEIGHT - 4 * 64
+        block.boundary_bottom = constants.SCREEN_HEIGHT - 3 * 64
+        block.boundary_top = constants.SCREEN_HEIGHT - 8 * 64
+        block.change_y = 1
+        block.player = self.player
+        block.level = self
+        self.platform_list.add(block)
+
+             # # Add a custom moving platform
+        block = platforms.MovingPlatform(platforms.BRICK3)
+        block.rect.x = 61 * 64
+        block.rect.y = constants.SCREEN_HEIGHT - 4 * 64
+        block.boundary_bottom = constants.SCREEN_HEIGHT - 3 * 64
+        block.boundary_top = constants.SCREEN_HEIGHT - 8 * 64
+        block.change_y = 1
+        block.boundary_left = 60 * 64
+        block.boundary_right = 65 * 64
+        block.change_x = -1
         block.player = self.player
         block.level = self
         self.platform_list.add(block)
@@ -85,5 +111,10 @@ class Level_01(Level):
         mob = Mob(player)
         mob.level = self
         mob.rect.x = 10*64
+        mob.rect.y = 5*64
+        self.enemy_list.add(mob)
+        mob = Mob(player)
+        mob.level = self
+        mob.rect.x = 12*64
         mob.rect.y = 5*64
         self.enemy_list.add(mob)

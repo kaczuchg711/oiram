@@ -58,8 +58,9 @@ class Mob(pygame.sprite.Sprite):
             leg_height = self.player.rect.y + self.player.rect.height
             if self.player.rect.colliderect(self):
                 if leg_height - 20 < self.rect.y:
-                    self.kill()
+                    self.player.jump()
                     constants.score += 5
+                    self.kill()
                 else:
                     self.player.kill()
                     exit(0)
@@ -86,6 +87,19 @@ class Mob(pygame.sprite.Sprite):
                 self.delta_x = -1
             else:
                 self.delta_x = 1
+
+        mob_hit_list = pygame.sprite.spritecollide(self, self.level.enemy_list, False)
+        
+        for mob in mob_hit_list:
+            # If we are moving right,
+            # set our right side to the left side of the item we hit
+            if mob is self: continue
+            if self.delta_x == 1:
+                self.delta_x = -1
+            else:
+
+                self.delta_x = 1
+
 
          # Move up/down
         self.rect.y += self.delta_y

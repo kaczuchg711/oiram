@@ -30,6 +30,8 @@ class Oriam(pygame.sprite.Sprite):
         # of our player
         self.walking_frames_l = []
         self.walking_frames_r = []
+        self.standing_frames_l = []
+        self.standing_frames_r = []
 
         # What direction is the player facing?
         self.direction = "R"
@@ -38,21 +40,32 @@ class Oriam(pygame.sprite.Sprite):
         self.level = None
 
         sprite_sheet = SpriteSheet("static/img/oiram/OIRAM_walk2.png")
-        image = sprite_sheet.get_image(32, 31, 62, 128)
-        self.walking_frames_r.append(image)
+        
+        image = sprite_sheet.get_image(517, 31, 62, 128)
+        self.standing_frames_r.append(image)
+        
         image = sprite_sheet.get_image(129, 31, 62, 128)
         self.walking_frames_r.append(image)
         image = sprite_sheet.get_image(226, 31, 62, 128)
         self.walking_frames_r.append(image)
-        image = sprite_sheet.get_image(517, 31, 62, 128)
+        image = sprite_sheet.get_image(32, 31, 62, 128)
         self.walking_frames_r.append(image)
+        
+        
 
         for image_to_rotate in self.walking_frames_r:
             image_to_rotate = pygame.transform.flip(image_to_rotate.copy(), True, False)
             self.walking_frames_l.append(image_to_rotate)
 
+        
+
+        for image_to_rotate in self.standing_frames_r:
+            image_to_rotate = pygame.transform.flip(image_to_rotate.copy(), True, False)
+            self.standing_frames_l.append(image_to_rotate)    
+    
+
         # Set the image the player starts with
-        self.image = self.walking_frames_r[0]
+        self.image = self.standing_frames_r[0]
 
         # Set a reference to the image rect.
         self.rect = self.image.get_rect()
@@ -90,11 +103,19 @@ class Oriam(pygame.sprite.Sprite):
         self.rect.x += self.change_x
         pos = self.rect.x + self.level.world_shift_x
         if self.direction == "R":
-            frame = (pos // 60) % len(self.walking_frames_r)
-            self.image = self.walking_frames_r[frame]
+            if self.change_x == 0:
+                frame = (pos // 60) % len(self.standing_frames_r)
+                self.image = self.standing_frames_r[frame]
+            else:
+                frame = (pos // 60) % len(self.walking_frames_r)
+                self.image = self.walking_frames_r[frame]
         else:
-            frame = (pos // 60) % len(self.walking_frames_l)
-            self.image = self.walking_frames_l[frame]
+            if self.change_x == 0:
+                frame = (pos // 60) % len(self.standing_frames_l)
+                self.image = self.standing_frames_l[frame]
+            else:
+                frame = (pos // 60) % len(self.walking_frames_l)
+                self.image = self.walking_frames_l[frame]
 
         self._check_fatal_fall()
 
