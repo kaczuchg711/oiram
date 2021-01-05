@@ -103,6 +103,9 @@ def main():
         clock.tick(60)
         pygame.display.set_caption("ORIAM: " + str(constants.score))
         # Go ahead and update the screen with what we've drawn.
+        
+        screen.blit(pygame.transform.flip(screen, True, False), (0, 0))
+
         pygame.display.flip()
 
     # Be IDLE friendly. If you forget this line, the program will 'hang'

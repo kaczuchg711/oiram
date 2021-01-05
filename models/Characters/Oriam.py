@@ -43,7 +43,7 @@ class Oriam(pygame.sprite.Sprite):
         
         image = sprite_sheet.get_image(517, 31, 62, 128)
         self.standing_frames_r.append(image)
-        
+
         image = sprite_sheet.get_image(129, 31, 62, 128)
         self.walking_frames_r.append(image)
         image = sprite_sheet.get_image(226, 31, 62, 128)
@@ -72,17 +72,17 @@ class Oriam(pygame.sprite.Sprite):
 
     def move_character_depend_on_key(self, event):
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                self.go_left()
             if event.key == pygame.K_RIGHT:
+                self.go_left()
+            if event.key == pygame.K_LEFT:
                 self.go_right()
             if event.key == pygame.K_UP:
                 self.jump()
 
         if event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT and self.change_x < 0:
+            if event.key == pygame.K_RIGHT and self.change_x < 0:
                 self.stop()
-            if event.key == pygame.K_RIGHT and self.change_x > 0:
+            if event.key == pygame.K_LEFT and self.change_x > 0:
                 self.stop()
 
     def _is_under_block(self, block):
@@ -189,12 +189,12 @@ class Oriam(pygame.sprite.Sprite):
     # Player-controlled movement:
     def go_left(self):
         """ Called when the user hits the left arrow. """
-        self.change_x = -6
+        self.change_x = -4
         self.direction = "L"
 
     def go_right(self):
         """ Called when the user hits the right arrow. """
-        self.change_x = 6
+        self.change_x = 4
         self.direction = "R"
 
     def stop(self):
