@@ -18,7 +18,7 @@ class Level_01(Level):
         self.background2 = pygame.image.load("static/img/world1_2.png").convert()
         self.background.set_colorkey(constants.WHITE)
         self.background2.set_colorkey(constants.BLUE)
-        self.level_limit = -100 * 64
+        self.level_limit = -70 * 64
  
         # Array with type of platform, and x, y location of the platform.
         bricks = [[platforms.BRICK2,20, 6],
@@ -55,9 +55,25 @@ class Level_01(Level):
                 [platforms.PIPE_LEFT,38, 4],
                 [platforms.PIPE_RIGHT,39,4],
                 [platforms.PIPE_LEFT,38, 3],
-                [platforms.PIPE_RIGHT,39,3],]
+                [platforms.PIPE_RIGHT,39,3],
+                [platforms.BRICK1,-1,1],
+                [platforms.BRICK1,-1,2],
+                [platforms.BRICK1,-1,3],
+                [platforms.BRICK1,-1,4],
+                [platforms.BRICK1,-1,5],
+                [platforms.BRICK1,-1,6],
+                [platforms.BRICK1,-1,7],
+                [platforms.BRICK1,-1,8],
+                [platforms.BRICK1,-2,1],
+                [platforms.BRICK1,-2,2],
+                [platforms.BRICK1,-2,3],
+                [platforms.BRICK1,-2,4],
+                [platforms.BRICK1,-2,5],
+                [platforms.BRICK1,-2,6],
+                [platforms.BRICK1,-2,7],
+                [platforms.BRICK1,-2,8],]
                 
-        for x in range(112):
+        for x in range(-10,112):
             if x in [69, 70, 86,87,88]:
                 continue
             floor.append([platforms.BRICK1, x, 2])

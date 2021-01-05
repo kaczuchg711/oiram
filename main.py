@@ -21,7 +21,7 @@ def main():
 
     level_list = []
     level_list.append(Level_01(player))
-    #level_list.append(Level_01(player))
+    level_list.append(Level_01(player))
 
     # Set the current level
     current_level_no = 0
@@ -85,13 +85,13 @@ def main():
             current_level.shift_world_y(diff)
 
         # If the player gets to the end of the level, go to the next level
-       # current_position = player.rect.x + current_level.world_shift
-      #  if current_position < current_level.level_limit:
-      #      player.rect.x = 120
-      #      if current_level_no < len(level_list) - 1:
-     #           current_level_no += 1
-      #          current_level = level_list[current_level_no]
-      #          player.level = current_level
+        current_position = player.rect.x + current_level.world_shift_x
+        if current_position < current_level.level_limit:
+            player.rect.x = 120
+            if current_level_no < len(level_list) - 1:
+               current_level_no += 1
+               current_level = level_list[current_level_no]
+               player.level = current_level
 
         # ALL CODE TO DRAW SHOULD GO BELOW THIS COMMENT
         current_level.draw(screen)
