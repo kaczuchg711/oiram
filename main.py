@@ -21,7 +21,7 @@ def main():
 
     level_list = []
     level_list.append(Level_01(player))
-    level_list.append(Level_01(player))
+    level_list.append(Level_02(player))
 
     # Set the current level
     current_level_no = 0
